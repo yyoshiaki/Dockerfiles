@@ -25,3 +25,5 @@ RUN unzip 1.1.9.zip
 ENV PATH $PATH:$HOME/vdjtools-1.1.9
 
 RUN vdjtools Rinstall
+
+CMD ["vdjtools"]
