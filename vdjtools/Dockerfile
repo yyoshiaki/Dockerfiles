@@ -14,7 +14,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886  && \
     apt-get update
 
-
 RUN echo "===> install Java"  && \
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
     echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
