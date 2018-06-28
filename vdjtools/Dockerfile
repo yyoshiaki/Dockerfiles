@@ -32,4 +32,7 @@ ENV PATH $PATH:$HOME/vdjtools-1.1.9
 
 RUN vdjtools Rinstall
 
+RUN mkdir data
+WORKDIR data
+
 CMD ["vdjtools"]
