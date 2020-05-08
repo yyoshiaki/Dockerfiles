@@ -1,35 +1,22 @@
-FROM rocker/r-ver:3.1
+FROM rocker/r-ubuntu:18.04
 
 LABEL  maintainer "yyasumizu <y.yasumizu@gmail.com>"
 
-RUN apt-get update && apt-get install -y wget 
-# RUN apt-get install openjdk-8-jdk
+# RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list &&\
+#   echo "deb http://security.debian.org jessie/updates main" >> /etc/apt/sources.list &&\
+#    apt-get update -qq && apt-get install -y wget gnupg 
+# RUN apt-get update && apt-get install -y wget  software-properties-common
+
+# RUN add-apt-repository ppa:webupd8team/java && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && apt update && apt install oracle-java8-installer
 # RUN apt-get install apt-file && apt-file update && apt-get install software-properties-common
 # RUN add-apt-repository ppa:webupd8team/java && 
 
-RUN \
-    echo "===> add webupd8 repository..."  && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list  && \
-    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list  && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886  && \
-    apt-get update
-
-
-RUN echo "===> install Java"  && \
-    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
-    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
-    DEBIAN_FRONTEND=noninteractive  apt-get install -y --force-yes oracle-java8-installer oracle-java8-set-default
-
-
-RUN echo "===> clean up..."  && \
-    rm -rf /var/cache/oracle-jdk8-installer  && \
-    apt-get clean  && \
-    rm -rf /var/lib/apt/lists/*
+RUN add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk
 
 RUN wget https://github.com/mikessh/vdjtools/releases/download/1.2.1/vdjtools-1.2.1.zip
 RUN unzip vdjtools-1.2.1.zip
 ENV PATH $PATH:$HOME/vdjtools-1.2.1
-
+RUN chmod 700 vdjtools-1.2.1/vdjtools
 RUN vdjtools Rinstall
 
 RUN mkdir data
