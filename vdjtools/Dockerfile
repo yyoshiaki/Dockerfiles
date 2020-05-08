@@ -26,9 +26,9 @@ RUN echo "===> clean up..."  && \
     apt-get clean  && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/mikessh/vdjtools/releases/download/1.1.9/vdjtools-1.1.9.zip
-RUN unzip vdjtools-1.1.9.zip
-ENV PATH $PATH:$HOME/vdjtools-1.1.9
+RUN wget https://github.com/mikessh/vdjtools/releases/download/1.2.1/vdjtools-1.2.1.zip
+RUN unzip vdjtools-1.2.1.zip
+ENV PATH $PATH:$HOME/vdjtools-1.2.1
 
 RUN vdjtools Rinstall
 
