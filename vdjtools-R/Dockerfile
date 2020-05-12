@@ -17,11 +17,18 @@ RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list
 RUN apt-get update ; exit 0
 RUN apt-get -y install r-cran-ape r-cran-ggplot2 r-cran-gplots r-cran-mass \
   r-cran-plotrix r-cran-rcolorbrewer r-cran-reshape r-cran-reshape2 \
-  r-cran-scales
-RUN R -e "install.packages(c('circlize', 'grid', 'gridExtra', 'VennDiagram', \
-            'reshape2', 'FField', 'reshape', 'gplots', \
-            'ggplot2', 'ape', 'MASS', 'plotrix', \
-            'RColorBrewer', 'scales'))"
+  r-cran-scales wget
+
+# Error: This is R 3.1.0, package ‘ape’ needs >= 3.2.0
+# RUN R -e "install.packages(c('circlize', 'grid', 'gridExtra', 'VennDiagram'))"
+# RUN R -e ".libPaths(c(.libPaths(), '/usr/lib/R/site-library'))"
+
+RUN R -e 'install.packages(c("reshape2", "FField", "reshape", "gplots", \
+                    "gridExtra", "circlize", "ggplot2", "grid", \
+                    "VennDiagram", "ape", "MASS", "plotrix", \
+                    "RColorBrewer", "scales"))'
+RUN wget https://cran.r-project.org/src/contrib/Archive/ape/ape_3.5.tar.gz
+RUN R CMD INSTALL ape_3.5.tar.gz
 
 RUN mkdir -p /data
 WORKDIR /data
