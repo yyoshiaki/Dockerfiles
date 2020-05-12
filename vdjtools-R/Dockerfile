@@ -18,7 +18,10 @@ RUN apt-get update ; exit 0
 RUN apt-get -y install r-cran-ape r-cran-ggplot2 r-cran-gplots r-cran-mass \
   r-cran-plotrix r-cran-rcolorbrewer r-cran-reshape r-cran-reshape2 \
   r-cran-scales
-RUN R -e "install.packages(c('circlize', 'grid', 'gridExtra', 'VennDiagram'))"
+RUN R -e "install.packages(c('circlize', 'grid', 'gridExtra', 'VennDiagram', \
+            'reshape2', 'FField', 'reshape', 'gplots', \
+            'ggplot2', 'ape', 'MASS', 'plotrix', \
+            'RColorBrewer', 'scales'))"
 
 RUN mkdir -p /data
 WORKDIR /data
