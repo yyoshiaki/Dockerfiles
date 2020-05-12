@@ -1,4 +1,4 @@
-FROM rocker/r-ubuntu:18.04
+FROM rocker/r-ver:3.1.0
 
 LABEL  maintainer "yyasumizu <y.yasumizu@gmail.com>"
 
@@ -11,15 +11,16 @@ LABEL  maintainer "yyasumizu <y.yasumizu@gmail.com>"
 # RUN apt-get install apt-file && apt-file update && apt-get install software-properties-common
 # RUN add-apt-repository ppa:webupd8team/java && 
 
-RUN add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk
-
-RUN wget https://github.com/mikessh/vdjtools/releases/download/1.2.1/vdjtools-1.2.1.zip
-RUN unzip vdjtools-1.2.1.zip
-ENV PATH $PATH:$HOME/vdjtools-1.2.1
-RUN chmod 777 vdjtools-1.2.1/vdjtools
-RUN vdjtools Rinstall
+RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list \
+    echo "deb http://security.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
+    echo "deb http://deb.debian.org/debian stretch-updates main" >> /etc/apt/sources.list
+RUN apt-get update ; exit 0
+RUN apt-get -y install r-cran-ape r-cran-ggplot2 r-cran-gplots r-cran-mass \
+  r-cran-plotrix r-cran-rcolorbrewer r-cran-reshape r-cran-reshape2 \
+  r-cran-scales
+RUN R -e "install.packages(c('circlize', 'grid', 'gridExtra', 'VennDiagram'))"
 
 RUN mkdir -p /data
 WORKDIR /data
 
-CMD ["vdjtools"]
+CMD ["R"]
