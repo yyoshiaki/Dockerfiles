@@ -33,4 +33,6 @@ RUN R CMD INSTALL ape_3.5.tar.gz
 RUN mkdir -p /data
 WORKDIR /data
 
+COPY cluster_samples_mod.r /data
+
 CMD ["R"]
