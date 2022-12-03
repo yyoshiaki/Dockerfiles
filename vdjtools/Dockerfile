@@ -19,7 +19,7 @@ ENV PATH $PATH:$HOME/vdjtools-1.2.1
 RUN chmod 777 vdjtools-1.2.1/vdjtools
 RUN vdjtools Rinstall
 
-RUN mkdir data
-WORKDIR data
+RUN mkdir -p /data
+WORKDIR /data
 
 CMD ["vdjtools"]
