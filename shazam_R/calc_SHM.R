@@ -9,7 +9,7 @@ args1 = commandArgs(trailingOnly=TRUE)[1]
 args2 = commandArgs(trailingOnly=TRUE)[2]
 
 db <- read_delim(args1, '\t')
-db_obs <- observedMutations(db, sequenceColumn="germline_alignment",
+db_obs <- observedMutations(db, sequenceColumn="sequence_alignment",
                             germlineColumn="germline_alignment_d_mask",
                             regionDefinition=NULL,
                             frequency=TRUE, 
